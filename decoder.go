@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package wmi
@@ -10,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bi-zone/go-ole"
-	"github.com/bi-zone/go-ole/oleutil"
+	"github.com/go-ole/go-ole"
+	"github.com/go-ole/go-ole/oleutil"
 	"github.com/hashicorp/go-multierror"
 )
 
@@ -28,7 +29,8 @@ type Unmarshaler interface {
 // `Win32_LoggedOnUser`.
 //
 // Ref:
-// 	https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-wmio/58e803a6-25f6-4ba6-abdc-b39e1daa66fc
+//
+//	https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-wmio/58e803a6-25f6-4ba6-abdc-b39e1daa66fc
 //	https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-loggedonuser
 type Dereferencer interface {
 	Dereference(referencePath string) (*ole.VARIANT, error)
@@ -117,22 +119,24 @@ var timeType = reflect.TypeOf(time.Time{})
 //
 // Unmarshal allows to specify special COM-object property name or skip a field
 // using structure field tags, e.g.
-//   // Will be filled from property `Frequency_Object`
-//   FrequencyObject int wmi:"Frequency_Object"`
 //
-//   // Will be skipped during unmarshalling.
-//   MyHelperField   int wmi:"-"`
+//	  // Will be filled from property `Frequency_Object`
+//	  FrequencyObject int wmi:"Frequency_Object"`
 //
-//   // Will be unmarshalled by CIM reference.
-//   // See `Dereferencer` for more info.
-//	 Field  Type `wmi:"FieldName,ref"
-//	 Field2 Type `wmi:",ref"
+//	  // Will be skipped during unmarshalling.
+//	  MyHelperField   int wmi:"-"`
+//
+//	  // Will be unmarshalled by CIM reference.
+//	  // See `Dereferencer` for more info.
+//		 Field  Type `wmi:"FieldName,ref"
+//		 Field2 Type `wmi:",ref"
 //
 // Unmarshal prefers tag value over the field name, but ignores any name collisions.
 // So for example all the following fields will be resolved to the same value.
-//   Field  int
-//   Field1 int `wmi:"Field"`
-//   Field2 int `wmi:"Field"`
+//
+//	Field  int
+//	Field1 int `wmi:"Field"`
+//	Field2 int `wmi:"Field"`
 func (d Decoder) Unmarshal(src *ole.IDispatch, dst interface{}) (err error) {
 	defer func() {
 		// We use lots of reflection, so always be alert!
@@ -365,12 +369,14 @@ func smartUnmarshalString(fieldDst reflect.Value, val string) error {
 
 // parses CIM_DATETIME from string format "yyyymmddHHMMSS.mmmmmmsUUU"
 // where
-//		"mmmmmm"	Six-digit number of microseconds in the second.
-//		"s"			Plus sign (+) or minus sign (-) to indicate a positive or
-//					negative offset from UTC.
-// 		"UUU" 	 	Three-digit offset indicating the number of minutes that the
-// 					originating time zone deviates from UTC.
-// 		(other are obvious)
+//
+//	"mmmmmm"	Six-digit number of microseconds in the second.
+//	"s"			Plus sign (+) or minus sign (-) to indicate a positive or
+//				negative offset from UTC.
+//	"UUU" 	 	Three-digit offset indicating the number of minutes that the
+//				originating time zone deviates from UTC.
+//	(other are obvious)
+//
 // ref: https://docs.microsoft.com/en-us/windows/desktop/wmisdk/cim-datetime
 func unmarshalTime(fieldDst reflect.Value, val string) error {
 	const signPos = 21

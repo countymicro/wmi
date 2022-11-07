@@ -1,4 +1,5 @@
-//+build windows
+//go:build windows
+// +build windows
 
 package wmi_test
 
@@ -6,7 +7,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bi-zone/wmi"
+	"github.com/countymicro/wmi"
 )
 
 // Structure with some fields from Win32_Process

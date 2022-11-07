@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package wmi
@@ -9,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bi-zone/go-ole"
+	"github.com/go-ole/go-ole"
 )
 
 var (

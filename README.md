@@ -1,6 +1,6 @@
 # wmi
-[![GoDoc](https://godoc.org/github.com/bi-zone/wmi?status.svg)](https://godoc.org/github.com/bi-zone/wmi/)
-[![Go Report Card](https://goreportcard.com/badge/github.com/bi-zone/wmi)](https://goreportcard.com/report/github.com/bi-zone/wmi)
+[![GoDoc](https://godoc.org/github.com/countymicro/wmi?status.svg)](https://godoc.org/github.com/countymicro/wmi/)
+[![Go Report Card](https://goreportcard.com/badge/github.com/countymicro/wmi)](https://goreportcard.com/report/github.com/countymicro/wmi)
 
 Package wmi provides a WMI Query Language (WQL) interface for
 Windows Management Instrumentation (WMI) on Windows.
@@ -8,7 +8,7 @@ Windows Management Instrumentation (WMI) on Windows.
 This package uses [COM API for WMI](https://docs.microsoft.com/en-us/windows/win32/wmisdk/com-api-for-wmi)
 therefore it's only usable on the Windows machines.
 
-Package reference is available at https://godoc.org/github.com/bi-zone/wmi
+Package reference is available at https://godoc.org/github.com/countymicro/wmi
 
 ## Fork Features
 **Fork is fully compatibly with the original repo.** If not - please open an issue.
@@ -27,7 +27,7 @@ New features introduced in fork:
 - Ability to perform multiple queries in a single connection
 - `SWbemServices.Get` + auto dereference of REF fields
 - `SWbemServices.ExecNotificationQuery` support
-- More other improvements described in [releases page](https://github.com/bi-zone/wmi/releases)
+- More other improvements described in [releases page](https://github.com/countymicro/wmi/releases)
 
 ## Example
  Print names of the currently running processes
@@ -38,7 +38,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bi-zone/wmi"
+	"github.com/countymicro/wmi"
 )
 
 type win32Process struct {

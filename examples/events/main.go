@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/bi-zone/wmi"
+	"github.com/countymicro/wmi"
 	"github.com/go-ole/go-ole"
 )
 

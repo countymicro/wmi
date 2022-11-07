@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package wmi
@@ -9,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/bi-zone/go-ole"
-	"github.com/bi-zone/go-ole/oleutil"
+	"github.com/go-ole/go-ole"
+	"github.com/go-ole/go-ole/oleutil"
 	"github.com/hashicorp/go-multierror"
 	"github.com/scjalliance/comshim"
 )
@@ -235,12 +236,13 @@ func isChannelTypeOK(eventCh interface{}) bool {
 }
 
 // trySend does a send in select block like:
-//     select {
-//     case resCh <- resEl:
-//         return true
-//     case doneCh <- struct{}{}:
-//         return false
-//     }
+//
+//	select {
+//	case resCh <- resEl:
+//	    return true
+//	case doneCh <- struct{}{}:
+//	    return false
+//	}
 func trySend(resCh, doneCh, resEl reflect.Value) (sendSuccessful bool) {
 	resCase := reflect.SelectCase{
 		Dir:  reflect.SelectSend,

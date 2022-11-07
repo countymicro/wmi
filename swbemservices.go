@@ -1,3 +1,4 @@
+//go:build windows
 // +build windows
 
 package wmi
@@ -6,8 +7,8 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/bi-zone/go-ole"
-	"github.com/bi-zone/go-ole/oleutil"
+	"github.com/go-ole/go-ole"
+	"github.com/go-ole/go-ole/oleutil"
 	"github.com/hashicorp/go-multierror"
 	"github.com/scjalliance/comshim"
 )
